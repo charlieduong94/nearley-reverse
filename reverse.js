@@ -36,7 +36,7 @@
       if (!rules) return
       //console.log(target, value)
 
-      var bestCost = +Infinity
+      var bestCost = -Infinity
       var best = null
       for (let rule of rules) {
         let array = encode(rule, value)
@@ -51,7 +51,7 @@
             let child = generate(symbol, array[k])
             if (isNaN(child.cost)) {
               // indicates a recursive (bogus) derivation -- avoid these
-              cost = +Infinity
+              cost = -Infinity
               break
             }
             cost += child.cost
@@ -66,7 +66,7 @@
             part.push(symbol)
           }
         }
-        if (cost < bestCost) {
+        if (cost > bestCost) {
           best = part
           bestCost = cost
         }
